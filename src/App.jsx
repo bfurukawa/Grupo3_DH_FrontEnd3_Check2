@@ -1,9 +1,15 @@
 
-import { Outlet } from "react-router-dom";
+import { 
+  Outlet, 
+  createBrowserRouter,
+  RouterProvider,
+  Route, } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
+import Login from "./Components/LoginForm"
 
 function App() {
+
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
