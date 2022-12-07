@@ -13,3 +13,8 @@
 .inputSpacing+.inputSpacing{
   margin: 1rem 0;
 }
+
+.errorMsg{
+  color:red;
+  font-size: small;
+}

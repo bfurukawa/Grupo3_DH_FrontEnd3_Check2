@@ -1,6 +1,7 @@
 import styles from "./Form.module.css";
 import {useAuthentication} from "../hooks/useAuthentication"
 import { useNavigate } from "react-router-dom";
+import { useState } from "react"
 
 const LoginForm = () => {
 
@@ -8,6 +9,19 @@ const LoginForm = () => {
 
   const navigate = useNavigate()
 
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const [sendButton, setSendButton] = useState(<button className="btn btn-primary" type="submit" disabled>Send</button>)
+
+  const validarLogin = (e) => {
+      if(e.target.value.length < 5){
+        setSendButton(<button className="btn btn-primary" type="submit" disabled>Send</button>)
+      }
+      else{
+        setSendButton(<button className="btn btn-primary" type="submit">Send</button>)
+      }
+  }
+  
   const handleSubmit = async (e) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição 
@@ -16,6 +30,7 @@ const LoginForm = () => {
     //no localstorage para ser usado em chamadas futuras
     //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+    setErrorMsg('')
     e.preventDefault();
     var url = 'https://dhodonto.ctdprojetos.com.br/auth';
     var login = e.target.login.value;
@@ -38,6 +53,10 @@ const LoginForm = () => {
       navigate('/home',{replace:true})
       //sessionStorage.setItem("token",token.token)
     }
+    else{
+      e.target.password.value = ''
+      setErrorMsg(<p className={`${styles.errorMsg}`}>Verifique suas informações novamente</p>)
+    }
 
   };
 
@@ -52,6 +71,7 @@ const LoginForm = () => {
           <form onSubmit={handleSubmit}>
             <input
               className={`form-control ${styles.inputSpacing}`}
+              onChange={validarLogin}
               placeholder="Login"
               name="login"
               required
@@ -63,9 +83,8 @@ const LoginForm = () => {
               type="password"
               required
             />
-            <button className="btn btn-primary" type="submit">
-              Send
-            </button>
+            {errorMsg}
+            {sendButton}
           </form>
         </div>
       </div>
