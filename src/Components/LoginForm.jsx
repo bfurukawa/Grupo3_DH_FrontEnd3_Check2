@@ -1,9 +1,12 @@
 import styles from "./Form.module.css";
 import {useAuthentication} from "../hooks/useAuthentication"
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
 
   const {storeToken} = useAuthentication()
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
@@ -31,8 +34,8 @@ const LoginForm = () => {
     if(response.status=="200"){
       //Colocação provisoria do token no session storage
       var token = await response.json()
-      console.log(token.token)
       storeToken(token.token)
+      navigate('/home',{replace:true})
       //sessionStorage.setItem("token",token.token)
     }
 
