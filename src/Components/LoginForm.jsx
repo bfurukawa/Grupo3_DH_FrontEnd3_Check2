@@ -1,7 +1,11 @@
 import styles from "./Form.module.css";
+import {useAuthentication} from "../hooks/useAuthentication"
 
 const LoginForm = () => {
-  const handleSubmit = (e) => {
+
+  const {storeToken} = useAuthentication()
+
+  const handleSubmit = async (e) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
     //enviar os dados do formulário e enviá-los no corpo da requisição 
     //para a rota da api que faz o login /auth
@@ -9,6 +13,29 @@ const LoginForm = () => {
     //no localstorage para ser usado em chamadas futuras
     //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+    e.preventDefault();
+    var url = 'https://dhodonto.ctdprojetos.com.br/auth';
+    var login = e.target.login.value;
+    var passwd = e.target.password.value;
+    var body = JSON.stringify({"username": login,"password": passwd})
+
+    var response = await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type': "application/json"
+      },
+      body: body
+    })
+
+    //console.log(`request.status = ${response.status}`)
+    if(response.status=="200"){
+      //Colocação provisoria do token no session storage
+      var token = await response.json()
+      console.log(token.token)
+      storeToken(token.token)
+      //sessionStorage.setItem("token",token.token)
+    }
+
   };
 
   return (

@@ -7,14 +7,12 @@ import Login from "./Routes/Login";
 import Detail from "./Routes/Detail";
 import "./index.css";
 import App from "./App"
+import {AuthenticationProvider, useAuthentication } from "./hooks/useAuthentication"
 
 import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom"
-
-
-
 
 const appRouter = createBrowserRouter([
   {path:'',element:<App/>,children:[
@@ -27,7 +25,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 //Lembre-se de configurar suas rotas e seu contexto aqui
 root.render(
   <React.StrictMode>
-    {<RouterProvider router={appRouter}/> }
+    <AuthenticationProvider>
+      {<RouterProvider router={appRouter}/> }
+    </AuthenticationProvider> 
     {/* <App/> */}
     {/* <Navbar /> */}
     {/* <Home /> */}
