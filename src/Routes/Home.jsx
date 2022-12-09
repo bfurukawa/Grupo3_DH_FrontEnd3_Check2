@@ -21,7 +21,7 @@ const Home = () => {
     buscarDentistas()
   }, []);
 
-  useEffect(()=>setCards(listaDentistas.map((dentista)=><Card nome={dentista.nome} sobrenome={dentista.sobrenome} matricula={dentista.matricula}></Card>)),[listaDentistas])
+  useEffect(()=>setCards(listaDentistas.map((dentista)=><Card nome={dentista.nome} sobrenome={dentista.sobrenome} matricula={dentista.matricula} usuario={dentista.usuario.username}></Card>)),[listaDentistas])
 
   return (
     <>

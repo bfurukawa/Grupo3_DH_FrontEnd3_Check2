@@ -1,17 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
+import { response } from "msw";
 
-const DetailCard = () => {
+const DetailCard = (props) => {
 
-  useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api passando o 
-    //id do dentista que está vindo do react-router e carregar os dados em algum estado
+  const [ dentista, setDentista ] = useState({});
+  
+  let complemento = props.parametro;
+
+  let url = `https://dhodonto.ctdprojetos.com.br/dentista?matricula=`+props.parametro.id;
+    useEffect(() => {
+    
+    fetch(url).then(function(response){
+      response.json().then(function(data) {
+      const dentistaEscolhido = {
+        nome: data.nome,
+        sobrenome: data.sobrenome,
+        usuario: data.usuario.username,
+        matricula:data.matricula
+      }
+      setDentista(dentistaEscolhido)
+      console.log(dentista)
+    });  
+  })
   }, []);
+
   return (
-    //As instruções que estão com {''} precisam ser 
-    //substituídas com as informações que vem da api
+
     <>
+    
       <h1>Detail about Dentist {'Nome do Dentista'} </h1>
       <section className="card col-sm-12 col-lg-6 container">
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação
@@ -28,13 +46,10 @@ const DetailCard = () => {
           </div>
           <div className="col-sm-12 col-lg-6">
             <ul className="list-group">
-              <li className="list-group-item">Nome: {'Nome do Dentista'}</li>
-              <li className="list-group-item">
-                Sobrenome: {'Sobrenome do Dentista'}
-              </li>
-              <li className="list-group-item">
-                Usuário: {'Nome de usuário do Dentista'}
-              </li>
+              <li className="list-group-item">Nome: {dentista.nome}</li> 
+              <li className="list-group-item"> Sobrenome: {dentista.sobrenome}</li> 
+              <li className="list-group-item">Usuário: {dentista.usuario}</li>
+              <li className="list-group-item">Matrícula: {dentista.matricula}</li>
             </ul>
             <div className="text-center">
               {/* //Na linha seguinte deverá ser feito um teste se a aplicação

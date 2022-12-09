@@ -17,6 +17,7 @@ const Card = (props) => {
           que vem da API */}
           <a href={`/dentist/${props.matricula}`}>
             <h5 className={`card-title ${styles.title}`}>{props.nome} {props.sobrenome}</h5>
+            <h6 className={`card-title ${styles.title}`}>{props.usuario}</h6>
           </a>
         </div>
       </div>
