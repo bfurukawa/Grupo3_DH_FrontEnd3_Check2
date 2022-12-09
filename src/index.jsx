@@ -11,14 +11,16 @@ import {AuthenticationProvider, useAuthentication } from "./hooks/useAuthenticat
 
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider
 } from "react-router-dom"
 
 const appRouter = createBrowserRouter([
   {path:'',element:<App/>,children:[
+    {path:'',element:<Navigate to='home'/>},
     {path:'login',element:<Login/>},
     {path:'home',element:<Home/>},
-    {path:'/dentist/:id',element:<Detail/>},
+    {path:'dentist/:id',element:<Detail/>},
   ]}
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
