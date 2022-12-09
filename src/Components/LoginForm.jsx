@@ -1,11 +1,13 @@
 import styles from "./Form.module.css";
 import {useAuthentication} from "../hooks/useAuthentication"
+import {useThemeContext} from "../hooks/useTheme"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react"
 
 const LoginForm = () => {
 
   const {storeToken} = useAuthentication()
+  const { theme } = useThemeContext()
 
   const navigate = useNavigate()
 
@@ -65,19 +67,19 @@ const LoginForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center card container ${styles.card}`}
+        className={`text-center card container ${styles.card} ${theme}`}
       >
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
             <input
-              className={`form-control ${styles.inputSpacing}`}
+              className={`form-control ${styles.inputSpacing} ${theme}`}
               onChange={validarLogin}
               placeholder="Login"
               name="login"
               required
             />
             <input
-              className={`form-control ${styles.inputSpacing}`}
+              className={`form-control ${styles.inputSpacing} ${theme}`}
               placeholder="Password"
               name="password"
               type="password"

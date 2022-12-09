@@ -1,11 +1,14 @@
 import styles from "./Footer.module.css";
+import {useThemeContext} from "../hooks/useTheme"
+
 
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo(0, 0)
   }
+  const { theme } = useThemeContext()
   return (
-    <footer>
+    <footer className={`${theme}`}>
       <div className={styles.footerWrapper}>
         <button className={`btn btn-danger ${styles.top}`} onClick={scrollToTop}>Voltar para o topo</button>
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação

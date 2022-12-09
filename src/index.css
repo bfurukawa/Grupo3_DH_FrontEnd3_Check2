@@ -91,6 +91,10 @@ tr:nth-child(even) {
   color: white;
 }
 
+.dark h6{
+  color: white;
+}
+
 @media(min-width: 786px) and (max-width: 1065px){
   .card-grid{
     grid-template-columns: repeat(3, 1fr);

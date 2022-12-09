@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
+import {useThemeContext} from "../hooks/useTheme"
 
 
 const ScheduleForm = () => {
-
+  const { theme } = useThemeContext()
   const [listaDentistas, setListaDentistas] = useState([]);
   const [listaPacientes, setListaPacientes] = useState([]);
   const [listaPacienteModal, setListaPacienteModal] = useState('');
@@ -54,11 +55,10 @@ const ScheduleForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center container}`
-        }
+        className={`text-center container ${theme}`}
       >
         <form onSubmit={handleSubmit}>
-          <div className={`row ${styles.rowSpacing}`}>
+          <div className={`row ${styles.rowSpacing} `}>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="dentist" className="form-label">
                 Dentist

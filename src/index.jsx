@@ -8,6 +8,7 @@ import Detail from "./Routes/Detail";
 import "./index.css";
 import App from "./App"
 import {AuthenticationProvider, useAuthentication } from "./hooks/useAuthentication"
+import {ThemeProvider,useThemeContext} from "./hooks/useTheme"
 
 import {
   createBrowserRouter,
@@ -28,7 +29,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthenticationProvider>
-      {<RouterProvider router={appRouter}/> }
+      <ThemeProvider>
+        {<RouterProvider router={appRouter}/> }
+      </ThemeProvider>
     </AuthenticationProvider> 
     {/* <App/> */}
     {/* <Navbar /> */}
