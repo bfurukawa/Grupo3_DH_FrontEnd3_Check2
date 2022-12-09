@@ -1,9 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
 
+
 const ScheduleForm = () => {
+
   const [listaDentistas, setListaDentistas] = useState([]);
   const [listaPacientes, setListaPacientes] = useState([]);
+  const [listaPacienteModal, setListaPacienteModal] = useState('');
 
   async function buscarDentistas() {
     var urlDentistas = 'https://dhodonto.ctdprojetos.com.br/dentista';
@@ -11,18 +14,32 @@ const ScheduleForm = () => {
     setListaDentistas(await fetch(urlDentistas).then(((response)=>{return response.json()})))
   }
 
-  async function buscarDentistas() {
+  async function buscarPacientes() {
     var urlPacientes = 'https://dhodonto.ctdprojetos.com.br/paciente';
 
     setListaPacientes(await fetch(urlPacientes).then(((response)=>{return response.json()})))
+    
   }
 
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
     //e pacientes e carregar os dados em 2 estados diferentes
     buscarDentistas();
-    buscarDentistas()
+    buscarPacientes()
   }, []);
+
+  async function popularListaPacienteModal() {
+    
+    setListaPacienteModal(listaPacientes.body.map((item, index) => (
+      <option key={index} value={item.matricula}>
+        {item.nome} {item.sobrenome}
+      </option> )))
+  }
+
+  useEffect(() => {
+    popularListaPacienteModal()
+   
+  }, [listaPacientes]);
 
   const handleSubmit = (event) => {
     //Nesse handlesubmit você deverá usar o preventDefault,
@@ -47,10 +64,10 @@ const ScheduleForm = () => {
                 Dentist
               </label>
               <select className="form-select" name="dentist" id="dentist">
-                {listaDentistas.map((item) => 
-                <option key={'Matricula do dentista'} value={item.matricula}>
+                {listaDentistas.map((item, index) => (
+                <option key={index} value={item.matricula}>
                   {item.nome} {item.sobrenome}
-                </option> )}
+                </option> ))}
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
@@ -58,10 +75,8 @@ const ScheduleForm = () => {
                 Patient
               </label>
               <select className="form-select" name="patient" id="patient">
-                {/*Aqui deve ser feito um map para listar todos os pacientes*/}
-                <option key={'Matricula do paciente'} value={'Matricula do paciente'}>
-                  {`Nome Sobrenome`}
-                </option>
+              {/* {console.log(JSON.stringify(listaPacientes.body))} */}
+             {listaPacienteModal}
               </select>
             </div>
           </div>
