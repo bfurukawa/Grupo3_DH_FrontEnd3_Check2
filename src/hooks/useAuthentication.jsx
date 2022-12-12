@@ -9,7 +9,11 @@ export function AuthenticationProvider(props) {
 
     const [token, setToken] = useState('');
 
-    useEffect(()=>console.log(`Valor do token e ${token}`),[token])
+    useEffect(()=>{
+        if(sessionStorage.getItem("token")!=null){
+            setToken(sessionStorage.getItem("token"))
+        }
+    },[])
 
      return(
 

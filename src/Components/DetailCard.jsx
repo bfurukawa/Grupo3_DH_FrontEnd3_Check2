@@ -32,7 +32,7 @@ const DetailCard = (props) => {
 
     <>
     
-      <h1 className={`${theme}`}>Detail about Dentist {'Nome do Dentista'} </h1>
+      <h1 className={`${theme}`}>Detalhes do Dentista {dentista.nome} </h1>
       <section className={`card col-sm-12 col-lg-6 container ${theme}`}>
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}

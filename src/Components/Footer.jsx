@@ -1,7 +1,6 @@
 import styles from "./Footer.module.css";
 import {useThemeContext} from "../hooks/useTheme"
 
-
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo(0, 0)

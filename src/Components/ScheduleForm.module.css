@@ -9,3 +9,8 @@
 .rowSpacing{
   padding-bottom: 1rem;
 }
+
+.msgErro{
+  font-size: small;
+  color: red;
+}

@@ -33,9 +33,5 @@ root.render(
         {<RouterProvider router={appRouter}/> }
       </ThemeProvider>
     </AuthenticationProvider> 
-    {/* <App/> */}
-    {/* <Navbar /> */}
-    {/* <Home /> */}
-    {/* <Footer /> */}
   </React.StrictMode>
 );
