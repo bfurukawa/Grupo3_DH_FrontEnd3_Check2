@@ -53,7 +53,7 @@ const ScheduleForm = () => {
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
     event.preventDefault();
-    var url = 'http://dhodonto.ctdprojetos.com.br/consulta'
+    var url = 'https://dhodonto.ctdprojetos.com.br/consulta'
     var dentista = listaDentistas[event.target.dentist.selectedIndex]
     var paciente = listaPacientes.body[event.target.patient.selectedIndex]
     var data = event.target.appointmentDate.value

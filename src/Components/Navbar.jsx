@@ -11,11 +11,18 @@ const Navbar = () => {
   const navigate = useNavigate()
   const {token, removeToken} = useAuthentication()
 
-  function limpaStorage() {
+  const logOut = (e) => {
+    e.stopPropagation()
     removeToken()
     setShowLogIn(true)
     navigate('/home',{replace:true})
   }
+
+  // function limpaStorage() {
+  //   removeToken()
+  //   setShowLogIn(true)
+  //   navigate('/home',{replace:true})
+  // }
 
   function adicionaStorage() {
     if (token!="") {
@@ -72,7 +79,7 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/login" >
+                <a className="nav-link" onClick={(e)=>{navigate('/login',{replace:true})}}>
                   Login
                 </a>
               </li>):(<li className={`nav-item ${styles.navBarLink}`}>
@@ -82,7 +89,7 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/home" onClick={limpaStorage}>
+                <a className="nav-link" href="/home" onClick={logOut}>
                   LogOut
                 </a>
               </li>)}
