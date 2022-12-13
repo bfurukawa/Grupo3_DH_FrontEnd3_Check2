@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
-import {useThemeContext} from "../hooks/useTheme"
-import {useAuthentication} from "../hooks/useAuthentication"
+import { useThemeContext } from "../hooks/useTheme"
+import { useAuthentication } from "../hooks/useAuthentication"
 import { useNavigate } from "react-router-dom";
 
 const ScheduleForm = () => {
@@ -16,14 +16,14 @@ const ScheduleForm = () => {
   async function buscarDentistas() {
     var urlDentistas = 'https://dhodonto.ctdprojetos.com.br/dentista';
 
-    setListaDentistas(await fetch(urlDentistas).then(((response)=>{return response.json()})))
+    setListaDentistas(await fetch(urlDentistas).then(((response) => { return response.json() })))
   }
 
   async function buscarPacientes() {
     var urlPacientes = 'https://dhodonto.ctdprojetos.com.br/paciente';
 
-    setListaPacientes(await fetch(urlPacientes).then(((response)=>{return response.json()})))
-    
+    setListaPacientes(await fetch(urlPacientes).then(((response) => { return response.json() })))
+
   }
 
   useEffect(() => {
@@ -34,16 +34,16 @@ const ScheduleForm = () => {
   }, []);
 
   async function popularListaPacienteModal() {
-    
+
     setListaPacienteModal(listaPacientes.body.map((item, index) => (
       <option key={index} value={item.matricula}>
         {item.nome} {item.sobrenome}
-      </option> )))
+      </option>)))
   }
 
   useEffect(() => {
     popularListaPacienteModal()
-   
+
   }, [listaPacientes]);
 
   const handleSubmit = async (event) => {
@@ -93,22 +93,22 @@ const ScheduleForm = () => {
       },
       "dataHoraAgendamento": data
     }
-    
-    console.log(body)
-    var response = await fetch(url,{
-      method:'POST',
-      headers:{
+
+    var response = await fetch(url, {
+      method: 'POST',
+      headers: {
         'Content-Type': "application/json",
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(body)
     })
 
-    if(response.status!=200){
-      setMsgErro(<p className={styles.msgErro}> Houve um erro para marcar a consulta</p>)
-    }else{
+    if (response.status != 200) {
+      var responseJson = await response.text()
+      setMsgErro(<p className={styles.msgErro}>{responseJson}</p>)
+    } else {
       alert("Consulta marcada com sucesso!")
-      navigate('/home',{replace:true})
+      navigate('/home', { replace: true })
     }
   };
 
@@ -127,9 +127,9 @@ const ScheduleForm = () => {
               </label>
               <select className="form-select" name="dentist" id="dentist">
                 {listaDentistas.map((item, index) => (
-                <option key={index} value={item.matricula}>
-                  {item.nome} {item.sobrenome}
-                </option> ))}
+                  <option key={index} value={item.matricula}>
+                    {item.nome} {item.sobrenome}
+                  </option>))}
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
@@ -137,8 +137,8 @@ const ScheduleForm = () => {
                 Patiente
               </label>
               <select className="form-select" name="patient" id="patient">
-              {/* {console.log(JSON.stringify(listaPacientes.body))} */}
-             {listaPacienteModal}
+                {/* {console.log(JSON.stringify(listaPacientes.body))} */}
+                {listaPacienteModal}
               </select>
             </div>
           </div>
@@ -158,10 +158,11 @@ const ScheduleForm = () => {
           <div className={`row ${styles.rowSpacing}`}>
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-        {msgErro}
+            {msgErro}
             <button
               className={`btn btn-light ${styles.button
                 }`}
+              data-bs-toggle="modal"
               type="submit"
             >
               Schedule
