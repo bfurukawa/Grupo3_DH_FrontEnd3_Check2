@@ -3,11 +3,13 @@ import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
 import { response } from "msw";
 import {useThemeContext} from "../hooks/useTheme"
+import {useAuthentication} from "../hooks/useAuthentication"
 
 const DetailCard = (props) => {
 
   const [ dentista, setDentista ] = useState({});
   const { theme } = useThemeContext()
+  const { token } = useAuthentication()
   
   let complemento = props.parametro;
 
@@ -56,13 +58,18 @@ const DetailCard = (props) => {
             <div className="text-center">
               {/* //Na linha seguinte deverá ser feito um teste se a aplicação
               // está em dark mode e deverá utilizado o css correto */}
-              <button
+              {token == "" ? <button
+              onClick={()=>alert("Você precisa fazer o Login antes!")}
+                className={`btn btn-light ${styles.button} ${theme}`}
+              >
+                Marcar consulta
+              </button> : <button
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
                 className={`btn btn-light ${styles.button} ${theme}`}
               >
                 Marcar consulta
-              </button>
+              </button>}
             </div>
           </div>
         </div>
