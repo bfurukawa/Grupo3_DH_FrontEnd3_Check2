@@ -10,15 +10,15 @@ export function AuthenticationProvider(props) {
     const [token, setToken] = useState('');
 
     useEffect(()=>{
-        if(sessionStorage.getItem("token")!=null){
-            setToken(sessionStorage.getItem("token"))
+        if(localStorage.getItem("token")!=null){
+            setToken(localStorage.getItem("token"))
         }
     },[])
 
      return(
 
     //     // Construção dos Elementos para utilizarmos o Contexto em nossa Aplicação, tudo o que for contido no "value" será exportado e poderá ser utilizado em Componentes que utilizarem o Hook Customizado "useTheme"
-         <AuthenticationContext.Provider value={{token, storeToken}}>
+         <AuthenticationContext.Provider value={{token, storeToken, removeToken }}>
              { props.children }
          </AuthenticationContext.Provider>
 
@@ -26,7 +26,12 @@ export function AuthenticationProvider(props) {
 
      function storeToken(newToken){
         setToken(newToken)
-        sessionStorage.setItem("token",newToken)
+        localStorage.setItem("token",newToken)
+     }
+
+     function removeToken(){
+        setToken("")
+        localStorage.removeItem("token")
      }
 }
 

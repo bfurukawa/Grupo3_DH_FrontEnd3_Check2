@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
 import {useThemeContext} from "../hooks/useTheme"
 import {useAuthentication} from "../hooks/useAuthentication"
-
+import { useNavigate } from "react-router-dom";
 
 const ScheduleForm = () => {
   const { theme } = useThemeContext()
@@ -11,6 +11,7 @@ const ScheduleForm = () => {
   const [listaPacientes, setListaPacientes] = useState([]);
   const [listaPacienteModal, setListaPacienteModal] = useState('');
   const [msgErro, setMsgErro] = useState();
+  const navigate = useNavigate()
 
   async function buscarDentistas() {
     var urlDentistas = 'https://dhodonto.ctdprojetos.com.br/dentista';
@@ -106,7 +107,8 @@ const ScheduleForm = () => {
     if(response.status!=200){
       setMsgErro(<p className={styles.msgErro}> Houve um erro para marcar a consulta</p>)
     }else{
-      setMsgErro()
+      alert("Consulta marcada com sucesso!")
+      navigate('/home',{replace:true})
     }
   };
 
