@@ -106,6 +106,7 @@ const ScheduleForm = () => {
     if (response.status != 200) {
       var responseJson = await response.text()
       setMsgErro(<p className={styles.msgErro}>{responseJson}</p>)
+      alert(responseJson)
     } else {
       alert("Consulta marcada com sucesso!")
       navigate('/home', { replace: true })
